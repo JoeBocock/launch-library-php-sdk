@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JoeBocock\LaunchLibrary\Client;
+use JoeBocock\LaunchLibrary\Client\Client;
 use JoeBocock\LaunchLibrary\Request\Request;
 
 it('handles 404s', function () {

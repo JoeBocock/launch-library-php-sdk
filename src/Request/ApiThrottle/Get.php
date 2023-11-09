@@ -7,7 +7,7 @@ namespace JoeBocock\LaunchLibrary\Request\ApiThrottle;
 use JoeBocock\LaunchLibrary\Entity\ApiThrottle;
 use JoeBocock\LaunchLibrary\Request\Request;
 
-class ApiThrottleRequest extends Request
+class Get extends Request
 {
     /**
      * @var string

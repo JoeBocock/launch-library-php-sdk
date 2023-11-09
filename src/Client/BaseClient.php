@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace JoeBocock\LaunchLibrary;
+namespace JoeBocock\LaunchLibrary\Client;
 
 use GuzzleHttp\Client;
 use JoeBocock\LaunchLibrary\Enum\Url;
