@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JoeBocock\LaunchLibrary\Client;
+use JoeBocock\LaunchLibrary\Client\Client;
 use JoeBocock\LaunchLibrary\Entity\ApiThrottle;
 
 it('fetches api throttle information', function () {
@@ -10,7 +10,7 @@ it('fetches api throttle information', function () {
         client: mockSuccessfulClient('tests/Fixture/ApiThrottle/ApiThrottle.json')
     );
 
-    expect($client->apiThrottle())->toBeInstanceOf(ApiThrottle::class);
+    expect($client->apiThrottle->get())->toBeInstanceOf(ApiThrottle::class);
 });
 
 it('can be encoded', function () {
@@ -18,7 +18,7 @@ it('can be encoded', function () {
         client: mockSuccessfulClient('tests/Fixture/ApiThrottle/ApiThrottle.json')
     );
 
-    $apiThrottle = json_decode(json_encode($client->apiThrottle()));
+    $apiThrottle = json_decode(json_encode($client->apiThrottle->get()));
 
     expect($apiThrottle)->toHaveKeys([
         'your_request_limit',
