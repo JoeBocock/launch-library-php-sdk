@@ -23,8 +23,7 @@
   "require-dev": {
     "phpstan/phpstan": "^1.10",
     "pestphp/pest": "^2.24",
-    "friendsofphp/php-cs-fixer": "^3.38",
-    "mockery/mockery": "^1.6"
+    "friendsofphp/php-cs-fixer": "^3.38"
   },
   "config": {
     "allow-plugins": {
