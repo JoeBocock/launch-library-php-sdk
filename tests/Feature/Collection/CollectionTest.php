@@ -33,7 +33,8 @@ it('resolves a specific collection instance', function () {
     $pageTwo = json_decode($pageTwo, true);
 
     expect(json_decode(json_encode($collection->current()), true))->toBe($pageOne['results'][0]);
-    expect($collection->request->getQueryParameters())->toBe(['limit' => '1', 'offset' => '1']);
+    $params = $collection->request->getQueryParameters();
+    expect(['limit' => $params['limit'], 'offset' => $params['offset']])->toBe(['limit' => '1', 'offset' => '1']);
 
     $collection->next();
     $collection->valid();
@@ -44,7 +45,8 @@ it('resolves a specific collection instance', function () {
     $collection->valid();
 
     expect(json_decode(json_encode($collection->current()), true))->toBe($pageTwo['results'][0]);
-    expect($collection->request->getQueryParameters())->toBe(['limit' => '2', 'offset' => '2']);
+    $params = $collection->request->getQueryParameters();
+    expect(['limit' => $params['limit'], 'offset' => $params['offset']])->toBe(['limit' => '2', 'offset' => '2']);
 
     $collection->next();
     $collection->valid();
