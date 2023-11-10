@@ -16,8 +16,8 @@ use Psr\Http\Client\RequestExceptionInterface;
 abstract class BaseClient
 {
     public function __construct(
-        protected Url $url = Url::Production,
-        protected Version $version = Version::Latest,
+        public Url $url = Url::Production,
+        public Version $version = Version::Latest,
         private ClientInterface $client = new Client()
     ) {
     }

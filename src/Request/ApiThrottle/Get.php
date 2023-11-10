@@ -9,10 +9,8 @@ use JoeBocock\LaunchLibrary\Request\Request;
 
 class Get extends Request
 {
-    /**
-     * @var string
-     */
-    public const URI = '/api-throttle/';
+    /** @var string */
+    public const PATH = '/api-throttle/';
 
     /**
      * @param array{
