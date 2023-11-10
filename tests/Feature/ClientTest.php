@@ -7,7 +7,7 @@ use JoeBocock\LaunchLibrary\Request\Request;
 
 it('handles 404s', function () {
     $client = new Client(
-        client: mockClientWithStatus(404)
+        client: mockClient(status: 404)
     );
 
     $class = new class() extends Request {
@@ -22,7 +22,7 @@ it('handles 404s', function () {
 
 it('handles non-200 responses', function () {
     $client = new Client(
-        client: mockClientWithStatus(500)
+        client: mockClient(status: 500)
     );
 
     $class = new class() extends Request {

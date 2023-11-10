@@ -7,13 +7,13 @@ namespace JoeBocock\LaunchLibrary\Client;
 use JoeBocock\LaunchLibrary\Entity\ApiThrottle;
 use JoeBocock\LaunchLibrary\Request\ApiThrottle\Get;
 
-class ApiThrottleClient extends BaseClient
+class ApiThrottleClient extends SubClient
 {
     public function get(): ApiThrottle
     {
-        return $this->send(new Get(
-            $this->url,
-            $this->version
+        return $this->client->send(new Get(
+            $this->client->url,
+            $this->client->version
         ));
     }
 }

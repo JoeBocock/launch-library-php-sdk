@@ -47,17 +47,16 @@ use GuzzleHttp\Psr7\Response;
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-function mockSuccessfulClient(string $fixturePath): Client
+function mockClient(string $fixturePath = null, int $status = 200): Client
 {
     $mock = new MockHandler([
         new Response(
-            body: file_get_contents($fixturePath)
+            status: $status,
+            body: $fixturePath ? file_get_contents($fixturePath) : null
         ),
     ]);
 
-    $handlerStack = HandlerStack::create($mock);
-
-    return new Client(['handler' => $handlerStack]);
+    return new Client(['handler' => HandlerStack::create($mock)]);
 }
 
 function mockClientWithStatus(int $status): Client
@@ -66,9 +65,7 @@ function mockClientWithStatus(int $status): Client
         new Response($status),
     ]);
 
-    $handlerStack = HandlerStack::create($mock);
-
-    return new Client(['handler' => $handlerStack]);
+    return new Client(['handler' => HandlerStack::create($mock)]);
 }
 
 function mockRequestExceptionClient(string $message = 'Error'): Client
@@ -77,7 +74,5 @@ function mockRequestExceptionClient(string $message = 'Error'): Client
         new RequestException($message, new Request('GET', 'test')),
     ]);
 
-    $handlerStack = HandlerStack::create($mock);
-
-    return new Client(['handler' => $handlerStack]);
+    return new Client(['handler' => HandlerStack::create($mock)]);
 }

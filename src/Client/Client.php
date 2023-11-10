@@ -11,6 +11,7 @@ use Psr\Http\Client\ClientInterface;
 
 class Client extends BaseClient
 {
+    public AgencyClient $agency;
     public ApiThrottleClient $apiThrottle;
 
     public function __construct(
@@ -20,6 +21,7 @@ class Client extends BaseClient
     ) {
         parent::__construct($url, $version, $client);
 
-        $this->apiThrottle = new ApiThrottleClient($url, $version, $client);
+        $this->agency = new AgencyClient($this);
+        $this->apiThrottle = new ApiThrottleClient($this);
     }
 }

@@ -13,35 +13,42 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Request extends Psr7Request
 {
-    /**
-     * @var RequestMethod
-     */
+    /** @var RequestMethod */
     public const METHOD = RequestMethod::Get;
 
-    /**
-     * @var string
-     */
-    public const URI = '';
+    /** @var string */
+    public const PATH = '';
 
     public function __construct(protected Url $url = Url::Production, protected Version $apiVersion = Version::Latest)
     {
-        parent::__construct(
-            static::METHOD->value,
-            "{$this->url->value}/{$this->apiVersion->value}" . static::URI
-        );
+        parent::__construct(static::METHOD->value, new Uri());
     }
 
     public function getUri(): UriInterface
     {
-        return new Uri($this->requestUrl(
-            $this->getRequestParameters()
+        $uri = new Uri($this->requestUrl(
+            $this->getPathParameters()
         ));
+
+        if ($query = $this->getQueryParameters()) {
+            $uri = $uri->withQuery(http_build_query($query));
+        }
+
+        return $uri;
     }
 
     /**
      * @return array<string, mixed>
      */
-    public function getRequestParameters(): array
+    public function getPathParameters(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getQueryParameters(): array
     {
         return [];
     }
@@ -54,7 +61,7 @@ abstract class Request extends Psr7Request
         return "{$this->url->value}/{$this->apiVersion->value}" . str_replace(
             array_map(fn ($key) => "{{$key}}", array_keys($uriParameters)),
             $uriParameters,
-            static::URI
+            static::PATH
         );
     }
 

@@ -1,0 +1,41 @@
+{
+    "count": 324,
+    "next": "https://lldev.thespacedevs.com/2.2.0/agencies/?limit=1&offset=1",
+    "previous": null,
+    "results": [
+        {
+            "id": 178,
+            "url": "https://lldev.thespacedevs.com/2.2.0/agencies/178/",
+            "name": "Airbus Defence and Space",
+            "featured": false,
+            "type": "Multinational",
+            "country_code": "FRA,GER,GBR,ESP,ITA",
+            "abbrev": "AIRDS",
+            "description": "Airbus Defence and Space is a division of Airbus responsible for defence and aerospace products and services. The division was formed in January 2014 during the corporate restructuring of European Aeronautic Defence and Space (EADS), and comprises the former Airbus Military, Astrium, and Cassidian divisions. It is the world's second largest space company after Boeing and one of the top ten defence companies in the world.",
+            "administrator": "CEO: Michael Schoellhorn",
+            "founding_year": "2014",
+            "launchers": "Ariane",
+            "spacecraft": "ATV | Columbus | Orion ESM",
+            "parent": null,
+            "image_url": "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/agency_images/airbus2520defence2520and2520space_image_20190207032423.jpeg",
+            "logo_url": "https://spacelaunchnow-prod-east.nyc3.digitaloceanspaces.com/media/logo/airbus2520defence2520and2520space_logo_20190207032423.png"
+        },
+        {
+            "id": 225,
+            "url": "https://lldev.thespacedevs.com/2.2.0/agencies/225/",
+            "name": "1worldspace",
+            "featured": false,
+            "type": "Commercial",
+            "country_code": "USA",
+            "abbrev": "1WSP",
+            "description": "A now nonexistent satellite radio network company that operated two satellites to bring coverage with 62 stations to most of the Eastern Hemisphere. They went bankrupt in 2008. There has been a plan to relaunch the company, but it was announced in 2011, and nothing has been done since.",
+            "administrator": null,
+            "founding_year": "1960",
+            "launchers": "",
+            "spacecraft": "AfriStar | AsiaStar",
+            "parent": null,
+            "image_url": null,
+            "logo_url": null
+        }
+    ]
+}
