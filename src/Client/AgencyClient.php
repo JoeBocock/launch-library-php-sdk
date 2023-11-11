@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Client;
 
-use JoeBocock\LaunchLibrary\Collection\AgencyCollection;
-use JoeBocock\LaunchLibrary\Request\Agency\Index;
+use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
+use JoeBocock\LaunchLibrary\Request\Agency\ListAgency;
 
 class AgencyClient extends SubClient
 {
     /**
      * @param array<string>|null $countryCode
      */
-    public function index(
+    public function list(
         string $abbrev = null,
         string $abbrevContains = null,
         string $administrator = null,
@@ -80,8 +80,8 @@ class AgencyClient extends SubClient
         int $totalLaunchCountGTE = null,
         int $totalLaunchCountLT = null,
         int $totalLaunchCountLTE = null,
-    ): AgencyCollection {
-        $request = new Index(
+    ): AgencyIndexCollection {
+        $request = new ListAgency(
             $this->client->url,
             $this->client->version
         );
@@ -354,7 +354,7 @@ class AgencyClient extends SubClient
             $request->setTotalLaunchCountLTE($totalLaunchCountLTE);
         }
 
-        return new AgencyCollection(
+        return new AgencyIndexCollection(
             $this->client,
             $request,
         );

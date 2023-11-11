@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Request\Agency;
 
-use JoeBocock\LaunchLibrary\Entity\Agency;
+use JoeBocock\LaunchLibrary\Entity\AgencyIndex;
 use JoeBocock\LaunchLibrary\Request\PaginatedRequest;
 
-class Index extends PaginatedRequest
+class ListAgency extends PaginatedRequest
 {
     /** @var string */
     public const PATH = '/agencies/';
@@ -161,7 +161,7 @@ class Index extends PaginatedRequest
      *  count: int,
      *  next: string|null,
      *  previous: string|null,
-     *  results: array{
+     *  results: null|array{
      *      id: int,
      *      url: string,
      *      name: string,
@@ -180,32 +180,34 @@ class Index extends PaginatedRequest
      *  }[]
      * } $body
      *
-     * @return array<Agency>
+     * @return array<AgencyIndex>
      */
     public function hydrate(array $body, array $headers = null): array
     {
-        $this->parsePagination($body['next']);
+        $this->parsePagination(isset($body['next']) ? $body['next'] : null);
 
         $results = [];
 
-        foreach ($body['results'] as $result) {
-            $results[] = new Agency(
-                $result['id'],
-                $result['url'],
-                $result['name'],
-                $result['featured'],
-                $result['type'],
-                $result['country_code'],
-                $result['abbrev'],
-                $result['description'],
-                $result['administrator'],
-                $result['founding_year'],
-                $result['launchers'],
-                $result['spacecraft'],
-                $result['parent'],
-                $result['image_url'],
-                $result['logo_url'],
-            );
+        if (isset($body['results'])) {
+            foreach ($body['results'] as $result) {
+                $results[] = new AgencyIndex(
+                    $result['id'],
+                    $result['url'],
+                    $result['name'],
+                    $result['featured'],
+                    $result['type'],
+                    $result['country_code'],
+                    $result['abbrev'],
+                    $result['description'],
+                    $result['administrator'],
+                    $result['founding_year'],
+                    $result['launchers'],
+                    $result['spacecraft'],
+                    $result['parent'],
+                    $result['image_url'],
+                    $result['logo_url'],
+                );
+            }
         }
 
         return $results;

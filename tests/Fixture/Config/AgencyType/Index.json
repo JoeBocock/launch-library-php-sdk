@@ -1,0 +1,31 @@
+{
+    "count": 6,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "name": "Government"
+        },
+        {
+            "id": 2,
+            "name": "Multinational"
+        },
+        {
+            "id": 3,
+            "name": "Commercial"
+        },
+        {
+            "id": 4,
+            "name": "Educational"
+        },
+        {
+            "id": 5,
+            "name": "Private"
+        },
+        {
+            "id": 6,
+            "name": "Unknown"
+        }
+    ]
+}

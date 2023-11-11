@@ -86,7 +86,7 @@ use JoeBocock\LaunchLibrary\Client;
 
 $client = new Client();
 
-$client->agency->index();
+$client->agency->list();
 ```
 
 <br />

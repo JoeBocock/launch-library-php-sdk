@@ -7,7 +7,7 @@ namespace JoeBocock\LaunchLibrary\Request\ApiThrottle;
 use JoeBocock\LaunchLibrary\Entity\ApiThrottle;
 use JoeBocock\LaunchLibrary\Request\Request;
 
-class Get extends Request
+class GetApiThrottle extends Request
 {
     /** @var string */
     public const PATH = '/api-throttle/';
