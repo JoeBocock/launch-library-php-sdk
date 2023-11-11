@@ -81,3 +81,18 @@ it('can handle null next', function () {
     $collection->next();
     $collection->valid();
 });
+
+it('can handle no results', function () {
+    $mock = new MockHandler([
+            new Response(
+                body: json_encode([])
+            ),
+        ]);
+
+    $client = new Client(
+        client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
+    );
+
+    expect($collection = $client->agency->index())->toBeInstanceOf(AgencyCollection::class);
+    expect($collection->valid())->toBe(false);
+});

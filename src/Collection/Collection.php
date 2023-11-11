@@ -64,6 +64,10 @@ abstract class Collection implements \Iterator
 
             $this->rewind();
 
+            if (! isset($this->data[$this->position])) {
+                return false;
+            }
+
             return true;
         }
 
