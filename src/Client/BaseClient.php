@@ -7,6 +7,8 @@ namespace JoeBocock\LaunchLibrary\Client;
 use GuzzleHttp\Client;
 use JoeBocock\LaunchLibrary\Enum\Url;
 use JoeBocock\LaunchLibrary\Enum\Version;
+use JoeBocock\LaunchLibrary\Exception\LaunchLibraryRequestException;
+use JoeBocock\LaunchLibrary\Exception\LaunchLibraryResponseException;
 use JoeBocock\LaunchLibrary\Request\Request;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
@@ -27,7 +29,7 @@ abstract class BaseClient
         try {
             $response = $this->client->sendRequest($request);
         } catch (ClientExceptionInterface|RequestExceptionInterface|NetworkExceptionInterface $e) {
-            throw new \Exception($e->getMessage(), $e->getCode(), $e);
+            throw new LaunchLibraryRequestException($e->getMessage(), $e->getCode(), $e);
         }
 
         if (($code = $response->getStatusCode()) === 404) {
@@ -35,7 +37,7 @@ abstract class BaseClient
         }
 
         if ($code < 200 || $code >= 300) {
-            throw new \Exception("Responded with a non-200 ({$code}) status code.", $code);
+            throw new LaunchLibraryResponseException($response, "Responded with a non-200 ({$code}) status code.", $code);
         }
 
         return $request->hydrate(
