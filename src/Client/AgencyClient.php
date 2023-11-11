@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Client;
 
-use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
+use JoeBocock\LaunchLibrary\Collection\AgencyListCollection;
 use JoeBocock\LaunchLibrary\Request\Agency\ListAgency;
 
 class AgencyClient extends SubClient
@@ -80,7 +80,7 @@ class AgencyClient extends SubClient
         int $totalLaunchCountGTE = null,
         int $totalLaunchCountLT = null,
         int $totalLaunchCountLTE = null,
-    ): AgencyIndexCollection {
+    ): AgencyListCollection {
         $request = new ListAgency(
             $this->client->url,
             $this->client->version
@@ -354,7 +354,7 @@ class AgencyClient extends SubClient
             $request->setTotalLaunchCountLTE($totalLaunchCountLTE);
         }
 
-        return new AgencyIndexCollection(
+        return new AgencyListCollection(
             $this->client,
             $request,
         );

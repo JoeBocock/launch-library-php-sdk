@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Request\Agency;
 
-use JoeBocock\LaunchLibrary\Entity\AgencyIndex;
+use JoeBocock\LaunchLibrary\Entity\AgencyList;
 use JoeBocock\LaunchLibrary\Request\PaginatedRequest;
 
 class ListAgency extends PaginatedRequest
@@ -180,7 +180,7 @@ class ListAgency extends PaginatedRequest
      *  }[]
      * } $body
      *
-     * @return array<AgencyIndex>
+     * @return array<AgencyList>
      */
     public function hydrate(array $body, array $headers = null): array
     {
@@ -190,7 +190,7 @@ class ListAgency extends PaginatedRequest
 
         if (isset($body['results'])) {
             foreach ($body['results'] as $result) {
-                $results[] = new AgencyIndex(
+                $results[] = new AgencyList(
                     $result['id'],
                     $result['url'],
                     $result['name'],
