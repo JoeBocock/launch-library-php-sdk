@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use JoeBocock\LaunchLibrary\Client\Client;
+use JoeBocock\LaunchLibrary\Client;
 use JoeBocock\LaunchLibrary\Collection\AgencyCollection;
 use JoeBocock\LaunchLibrary\Entity\ApiThrottle;
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Collection;
 
-use JoeBocock\LaunchLibrary\Client\Client;
+use JoeBocock\LaunchLibrary\Client;
 use JoeBocock\LaunchLibrary\Entity\Entity;
 use JoeBocock\LaunchLibrary\Request\PaginatedRequest;
 

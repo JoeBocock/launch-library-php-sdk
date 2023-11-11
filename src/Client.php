@@ -2,9 +2,12 @@
 
 declare(strict_types=1);
 
-namespace JoeBocock\LaunchLibrary\Client;
+namespace JoeBocock\LaunchLibrary;
 
 use GuzzleHttp\Client as GuzzleClient;
+use JoeBocock\LaunchLibrary\Client\AgencyClient;
+use JoeBocock\LaunchLibrary\Client\ApiThrottleClient;
+use JoeBocock\LaunchLibrary\Client\BaseClient;
 use JoeBocock\LaunchLibrary\Enum\Url;
 use JoeBocock\LaunchLibrary\Enum\Version;
 use Psr\Http\Client\ClientInterface;
