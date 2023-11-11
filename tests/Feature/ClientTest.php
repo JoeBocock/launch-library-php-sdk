@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 use JoeBocock\LaunchLibrary\Client;
+use JoeBocock\LaunchLibrary\Exception\LaunchLibraryRequestException;
+use JoeBocock\LaunchLibrary\Exception\LaunchLibraryResponseException;
 use JoeBocock\LaunchLibrary\Request\Request;
 
 it('handles 404s', function () {
@@ -33,7 +35,7 @@ it('handles non-200 responses', function () {
     };
 
     $client->send($class);
-})->throws(\Exception::class, 'Responded with a non-200 (500) status code.');
+})->throws(LaunchLibraryResponseException::class, 'Responded with a non-200 (500) status code.');
 
 it('handles request exceptions', function () {
     $client = new Client(
@@ -48,4 +50,4 @@ it('handles request exceptions', function () {
     };
 
     $client->send($class);
-})->throws(\Exception::class, 'Error');
+})->throws(LaunchLibraryRequestException::class, 'Error');
