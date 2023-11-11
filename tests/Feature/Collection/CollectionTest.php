@@ -7,17 +7,35 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JoeBocock\LaunchLibrary\Client;
-use JoeBocock\LaunchLibrary\Collection\AgencyCollection;
+use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
 use JoeBocock\LaunchLibrary\Collection\Collection;
-use JoeBocock\LaunchLibrary\Request\Agency\Index;
+use JoeBocock\LaunchLibrary\Collection\Config\AgencyTypeCollection;
+use JoeBocock\LaunchLibrary\Request\Agency\ListAgency;
+use JoeBocock\LaunchLibrary\Request\PaginatedRequest;
 
-it('resolves a specific collection instance', function () {
+it('can paginate', function () {
     $mock = new MockHandler([
         new Response(
-            body: $pageOne = file_get_contents('tests/Fixture/Agency/IndexSmallPageOne.json')
+            body: json_encode($pageOne = [
+                'count' => 2,
+                'next' => 'https://example.local?limit=1&offset=1',
+                'previous' => null,
+                'results' => [
+                    ['id' => 1],
+                    ['id' => 2],
+                ],
+            ])
         ),
         new Response(
-            body: $pageTwo = file_get_contents('tests/Fixture/Agency/IndexSmallPageTwo.json')
+            body: json_encode($pageTwo = [
+                'count' => 2,
+                'next' => 'https://example.local?limit=2&offset=2',
+                'previous' => null,
+                'results' => [
+                    ['id' => 3],
+                    ['id' => 4],
+                ],
+            ])
         ),
     ]);
 
@@ -25,12 +43,26 @@ it('resolves a specific collection instance', function () {
         client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
     );
 
-    expect($collection = $client->agency->index())->toBeInstanceOf(AgencyCollection::class);
+    $request = new class() extends PaginatedRequest {
+        public function hydrate(array $body, array $headers = null): array
+        {
+            $this->parsePagination(isset($body['next']) ? $body['next'] : null);
+
+            $results = [];
+
+            foreach ($body['results'] as $result) {
+                $results[] = [
+                    'id' => $result['id'],
+                ];
+            }
+
+            return $results;
+        }
+    };
+
+    $collection = new class($client, $request, []) extends Collection {};
 
     $collection->valid();
-
-    $pageOne = json_decode($pageOne, true);
-    $pageTwo = json_decode($pageTwo, true);
 
     expect(json_decode(json_encode($collection->current()), true))->toBe($pageOne['results'][0]);
     $params = $collection->request->getQueryParameters();
@@ -55,7 +87,7 @@ it('resolves a specific collection instance', function () {
 });
 
 it('has a key', function () {
-    $class = new class(new Client(), new Index()) extends Collection {};
+    $class = new class(new Client(), new ListAgency()) extends Collection {};
 
     expect($class->key())->toBe(0);
 
@@ -75,7 +107,7 @@ it('can handle null next', function () {
         client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
     );
 
-    expect($collection = $client->agency->index())->toBeInstanceOf(AgencyCollection::class);
+    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyIndexCollection::class);
 
     $collection->valid();
     $collection->next();
@@ -93,6 +125,35 @@ it('can handle no results', function () {
         client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
     );
 
-    expect($collection = $client->agency->index())->toBeInstanceOf(AgencyCollection::class);
+    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyIndexCollection::class);
     expect($collection->valid())->toBe(false);
 });
+
+it('resolves to an instance', function (string $fixturePath, callable $callback, string $collectionClass) {
+    $mock = new MockHandler([
+        new Response(
+            body: $data = file_get_contents($fixturePath)
+        ),
+    ]);
+
+    $data = json_decode($data, true);
+
+    $client = new Client(
+        client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
+    );
+
+    $collection = $callback($client);
+
+    expect($collection)->toBeInstanceOf($collectionClass);
+
+    $collection->valid();
+
+    expect(json_decode(json_encode($collection->current()), true))->toBe($data['results'][0]);
+
+    $collection->next();
+    $collection->valid();
+
+    expect(json_decode(json_encode($collection->current()), true))->toBe($data['results'][1]);
+})->with([
+    ['tests/Fixture/Config/AgencyType/Index.json', fn (Client $client) => $client->config->agencyType->list(), AgencyTypeCollection::class],
+]);

@@ -3,14 +3,14 @@
 declare(strict_types=1);
 
 use JoeBocock\LaunchLibrary\Client;
-use JoeBocock\LaunchLibrary\Collection\AgencyCollection;
+use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
 
 it('has values that can be set', function () {
     $client = new Client(
         client: mockClient('tests/Fixture/Agency/Index.json')
     );
 
-    expect($collection = $client->agency->index(
+    expect($collection = $client->agency->list(
         abbrev: 'test',
         abbrevContains: 'test',
         administrator: 'test',
@@ -78,7 +78,7 @@ it('has values that can be set', function () {
         totalLaunchCountGTE: 1,
         totalLaunchCountLT: 1,
         totalLaunchCountLTE: 1,
-    ))->toBeInstanceOf(AgencyCollection::class);
+    ))->toBeInstanceOf(AgencyIndexCollection::class);
 
     $collection->valid();
 
