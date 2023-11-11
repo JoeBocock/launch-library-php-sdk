@@ -6,7 +6,7 @@ use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
-use JoeBocock\LaunchLibrary\Client\Client;
+use JoeBocock\LaunchLibrary\Client;
 use JoeBocock\LaunchLibrary\Collection\AgencyCollection;
 use JoeBocock\LaunchLibrary\Collection\Collection;
 use JoeBocock\LaunchLibrary\Request\Agency\Index;
