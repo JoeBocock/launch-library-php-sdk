@@ -51,50 +51,49 @@ General usage is simple and you can be up and running in no time.
 <br />
 
 ```php
+use JoeBocock\LaunchLibrary\Client;
 
-// TODO: Example
-
+$client = new Client();
 ```
 
 <br />
 
-Under the hood, Guzzle will be used to make the request - but if you have your own PSR-18 compliant HTTP client, you may provide it while constructing the `Client` class. This is great for when you need to configure the Client beforehand.
+The client has multiple configuration options. Firstly, you can provide a `JoeBocock\LaunchLibrary\Enum\Url`. This enum will determine which endpoint is used when making requests. Secondly a `JoeBocock\Enum\Version` can be provided and is used to decide on which API version should be hit. Finally, under the hood Guzzle will be used to make the request - but if you have your own PSR-18 compliant HTTP client, you may provide it while constructing the `Client` class. This is great for when you need to configure the Client beforehand.
 
 <br />
 
 ```php
+use GuzzleHttp\Client as GuzzleClient;
+use JoeBocock\LaunchLibrary\Client;
+use JoeBocock\LaunchLibrary\Enum\Url;
+use JoeBocock\LaunchLibrary\Enum\Version;
 
-// TODO: Example
-
+$client = new Client(
+    Url::Development,
+    Version::Latest,
+    new GuzzleClient(),
+);
 ```
 
 <br />
 
-For all endpoints, the client provides descriptive methods to easily handle the request construction and subsequent hydration of the response. These methods also provide some basic input validation to help you catch issues before making the request.
-
-Sometimes however, you may wish to handle the request construction yourself. The client allows you to do just that.
+The main client is composed of sub-clients. Whenever you want to make a request against a specific resource, it can be achieved by doing the following...
 
 <br />
 
 ```php
+use JoeBocock\LaunchLibrary\Client;
 
-// TODO: Example
+$client = new Client();
 
+$client->agency->index();
 ```
 
 <br />
 
-While I'd hope nothing goes wrong during usage, sometimes Launch Library might return a 4XX or even 5XX. In this case, our `Client` class throws three different exceptions to help discern the problem.
+While I'd hope nothing goes wrong during usage, sometimes Launch Library might return a 4XX or even 5XX. In this case, the `Client` class throws two different exceptions to help discern the problem.
 
-Invalid arguments will produce an `InvalidArgumentException` as expected. A `LaunchLibraryRequestException` will occur whenever there was an issue produced by the HTTP Client. Finally, a `LaunchLibraryResponseException` will happen whenever a response was returned that cannot be properly hydrated into an entity.
-
-<br />
-
-```php
-
-// TODO: Example
-
-```
+A `LaunchLibraryRequestException` will occur whenever there was an issue produced by the HTTP Client. Finally, a `LaunchLibraryResponseException` will happen whenever a response was returned that cannot be properly hydrated into an entity.
 
 <br />
 
