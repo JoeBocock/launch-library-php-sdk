@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use JoeBocock\LaunchLibrary\Client;
-use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
+use JoeBocock\LaunchLibrary\Collection\AgencyListCollection;
 
 it('has values that can be set', function () {
     $client = new Client(
@@ -78,7 +78,7 @@ it('has values that can be set', function () {
         totalLaunchCountGTE: 1,
         totalLaunchCountLT: 1,
         totalLaunchCountLTE: 1,
-    ))->toBeInstanceOf(AgencyIndexCollection::class);
+    ))->toBeInstanceOf(AgencyListCollection::class);
 
     $collection->valid();
 

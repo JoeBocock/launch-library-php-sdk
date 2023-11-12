@@ -7,7 +7,7 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use JoeBocock\LaunchLibrary\Client;
-use JoeBocock\LaunchLibrary\Collection\AgencyIndexCollection;
+use JoeBocock\LaunchLibrary\Collection\AgencyListCollection;
 use JoeBocock\LaunchLibrary\Collection\Collection;
 use JoeBocock\LaunchLibrary\Collection\Config\AgencyTypeCollection;
 use JoeBocock\LaunchLibrary\Request\Agency\ListAgency;
@@ -107,7 +107,7 @@ it('can handle null next', function () {
         client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
     );
 
-    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyIndexCollection::class);
+    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyListCollection::class);
 
     $collection->valid();
     $collection->next();
@@ -125,7 +125,7 @@ it('can handle no results', function () {
         client: new GuzzleHttpClient(['handler' => HandlerStack::create($mock)])
     );
 
-    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyIndexCollection::class);
+    expect($collection = $client->agency->list())->toBeInstanceOf(AgencyListCollection::class);
     expect($collection->valid())->toBe(false);
 });
 

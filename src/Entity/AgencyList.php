@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JoeBocock\LaunchLibrary\Entity;
 
-class AgencyIndex extends Entity
+class AgencyList extends Entity
 {
     public function __construct(
         public int $id,
